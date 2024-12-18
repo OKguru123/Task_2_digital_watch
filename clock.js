@@ -1,6 +1,5 @@
-  
-  const backgroundContainer = document.createElement("div");
-  backgroundContainer.style.cssText = `
+const backgroundContainer = document.createElement("div");
+backgroundContainer.style.cssText = `
   position: fixed;
   top: 0;
   left: 0;
@@ -15,35 +14,28 @@
   box-sizing: border-box; 
 `;
 
-  document.body.appendChild(backgroundContainer);
-  const dateOnly= document.createElement('p');
-  const Timeonly=document.createElement('p');
-  const heading=document.createElement('h4');
-  heading.innerHTML="Digital Clock";
+document.body.appendChild(backgroundContainer);
+const dateOnly = document.createElement("p");
+const Timeonly = document.createElement("p");
+const heading = document.createElement("h4");
+heading.innerHTML = "Digital Clock";
 
+function TimeDigital() {
+  popupContainer.appendChild(heading);
 
+  let Time = new Date();
 
+  dateOnly.innerHTML = "Date: " + Time.toDateString();
 
-   
-  function TimeDigital (){
-    popupContainer.appendChild(heading);
+  popupContainer.appendChild(dateOnly);
+  let timeonly = new Date();
+  Timeonly.innerHTML = "Time : " + timeonly.toLocaleTimeString();
+  popupContainer.appendChild(Timeonly);
+}
+document.body.appendChild(backgroundContainer);
 
-    let Time= new Date();
-
-    dateOnly.innerHTML= 'Date: '+Time.toDateString();
-    // console.log(dateOnly);
-      popupContainer.appendChild(dateOnly);
-      let timeonly=new Date();
-      Timeonly.innerHTML='Time : '+timeonly.toLocaleTimeString();
-      popupContainer.appendChild(Timeonly);
-      
-
-  }
-  document.body.appendChild(backgroundContainer);
-  
-  
-    const popupContainer = document.createElement("div");
-    popupContainer.style.cssText = `
+const popupContainer = document.createElement("div");
+popupContainer.style.cssText = `
     position: fixed;
     top:0px;
     background-color: white;
@@ -61,11 +53,9 @@
     box-sizing: border-box;
 `;
 
-    document.body.appendChild(popupContainer);
+document.body.appendChild(popupContainer);
 
-setInterval(TimeDigital,1000)
-
-//  function to create counter;
+setInterval(TimeDigital, 1000);
 
 const popupContainer2 = document.createElement("div");
 popupContainer2.style.cssText = `
@@ -88,10 +78,9 @@ box-sizing: border-box;
 `;
 
 document.body.appendChild(popupContainer2);
-const heading2=document.createElement('h4');
-heading2.innerHTML="stop watch";
-popupContainer2.appendChild(heading2)
-
+const heading2 = document.createElement("h4");
+heading2.innerHTML = "stop watch";
+popupContainer2.appendChild(heading2);
 
 const stopwatch = document.createElement("div");
 const hourBox = document.createElement("p");
@@ -103,12 +92,10 @@ secondBox.innerHTML = "00 :";
 const miliSecons = document.createElement("p");
 miliSecons.innerHTML = "00 ms";
 
-
 stopwatch.appendChild(hourBox);
 stopwatch.appendChild(minuteBox);
 stopwatch.appendChild(secondBox);
 stopwatch.appendChild(miliSecons);
-
 
 stopwatch.style.cssText = `
   display: flex;
@@ -118,9 +105,7 @@ stopwatch.style.cssText = `
   font-family: Arial, sans-serif;
 `;
 
-
 popupContainer2.appendChild(stopwatch);
-
 
 let miliCount = 0;
 let second = 0;
@@ -128,87 +113,66 @@ let minute = 0;
 let hour = 0;
 
 function miliSeconsChange() {
-  
-    miliCount++;
+  miliCount++;
 
-   
-    if (miliCount === 100) { 
-        miliCount = 0;
-        second++;
-    }
+  if (miliCount === 100) {
+    miliCount = 0;
+    second++;
+  }
 
-    if (second === 60) {
-        second = 0;
-        minute++;
-    }
+  if (second === 60) {
+    second = 0;
+    minute++;
+  }
 
-    if (minute === 60) {
-        minute = 0;
-        hour++;
-    }
+  if (minute === 60) {
+    minute = 0;
+    hour++;
+  }
 
-   
-    miliSecons.innerHTML = miliCount.toString().padStart(2, '0') + " ms";
-    secondBox.innerHTML = second.toString().padStart(2, '0') + " :";
-    minuteBox.innerHTML = minute.toString().padStart(2, '0') + " :";
-    hourBox.innerHTML = hour.toString().padStart(2, '0');
+  miliSecons.innerHTML = miliCount.toString().padStart(2, "0") + " ms";
+  secondBox.innerHTML = second.toString().padStart(2, "0") + " :";
+  minuteBox.innerHTML = minute.toString().padStart(2, "0") + " :";
+  hourBox.innerHTML = hour.toString().padStart(2, "0");
 }
 
+const buttonBox = document.createElement("div");
 
-const buttonBox=document.createElement('div');
-
-const ButtonReset= document.createElement('button')
+const ButtonReset = document.createElement("button");
 buttonBox.append(ButtonReset);
-ButtonReset.innerHTML='reset';
-ButtonReset.addEventListener('click',(e)=>{
-
-location.reload();
-
-
-})
-
+ButtonReset.innerHTML = "reset";
+ButtonReset.addEventListener("click", (e) => {
+  location.reload();
+});
 
 popupContainer2.appendChild(buttonBox);
 
-
-const stopButton=document.createElement('button');
-stopButton.innerHTML='Start';
+const stopButton = document.createElement("button");
+stopButton.innerHTML = "Start";
 buttonBox.append(stopButton);
-let running=false;
-let  intervalID;
+let running = false;
+let intervalID;
 
+stopButton.addEventListener("click", () => {
+  if (!running) {
+    stopButton.innerHTML = "stop";
+    intervalID = setInterval(miliSeconsChange, 10);
 
+    running = true;
+  } else {
+    stopButton.innerHTML = "Start";
+    clearInterval(intervalID);
+    running = false;
+  }
+});
 
-stopButton.addEventListener('click',  ()=>{
-    if(!running){
-        stopButton.innerHTML='stop';
-        intervalID = setInterval(miliSeconsChange,10)
-  
-        running=true;
+const lap = document.createElement("button");
 
-    }
-    
-    else{
-        stopButton.innerHTML = 'Start';
-        clearInterval(intervalID); 
-        running = false;
-
-        }
-    
-
-})
-
-
-const lap=document.createElement('button');
-
-lap.innerHTML='Lap';
-
-
-
+lap.innerHTML = "Lap";
 
 buttonBox.append(lap);
 
-const snapshotContainer = document.createElement('div');
+const snapshotContainer = document.createElement("div");
 snapshotContainer.style.cssText = `
     margin-top: 20px;
     padding: 10px;
@@ -221,52 +185,27 @@ snapshotContainer.style.cssText = `
 
 popupContainer2.appendChild(snapshotContainer);
 function takeSnapshot() {
+  const obj = {
+    hour: hour,
+    minute: minute,
+    second: second,
+    milisec: miliCount,
+  };
 
-    const obj = {
-        hour: hour,
-        minute: minute,
-        second: second,
-        milisec: miliCount
-    };
-
-  
-    const snapDiv = document.createElement('p');
-    snapDiv.innerHTML = `
+  const snapDiv = document.createElement("p");
+  snapDiv.innerHTML = `
         Lap Time: 
-        ${obj.hour.toString().padStart(2, '0')} :
-        ${obj.minute.toString().padStart(2, '0')} :
-        ${obj.second.toString().padStart(2, '0')} :
-        ${obj.milisec.toString().padStart(2, '0')}
+        ${obj.hour.toString().padStart(2, "0")} :
+        ${obj.minute.toString().padStart(2, "0")} :
+        ${obj.second.toString().padStart(2, "0")} :
+        ${obj.milisec.toString().padStart(2, "0")}
     `;
 
+  snapshotContainer.appendChild(snapDiv);
 
-    snapshotContainer.appendChild(snapDiv);
-
-  
-    return obj;
+  return obj;
 }
 
-lap.addEventListener('click', () => {
-    const snapshot = takeSnapshot();
-    console.log('Lap snapshot:', snapshot); 
+lap.addEventListener("click", () => {
+  const snapshot = takeSnapshot();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
